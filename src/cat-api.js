@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
+import "notiflix/dist/notiflix-3.2.6.min.css"
 
 export const refs = {
   select: document.querySelector('.breed-select'),
@@ -15,7 +17,6 @@ const BASE_URL = 'https://api.thecatapi.com/v1';
 
 export function fetchBreeds() {
   showLoader();
-  hideError();
   return axios
     .get(`${BASE_URL}/breeds`)
     .then(response => {
@@ -23,14 +24,13 @@ export function fetchBreeds() {
       return response.data;
     })
     .catch(() => {
-      showError();
+      Notiflix.Notify.failure(refs.error.textContent)
       hideLoader();
     });
 }
 
 export function fetchCatByBreed(breedId) {
   showLoader();
-  hideError();
   return axios
     .get(`${BASE_URL}/images/search?breed_ids=${breedId}`)
     .then(response => {
@@ -38,23 +38,16 @@ export function fetchCatByBreed(breedId) {
       return response.data[0];
     })
     .catch(() => {
-      showError();
+      Notiflix.Notify.failure(refs.error.textContent)
       hideLoader();
     });
 }
 
-export function hideError() {
-  refs.error.hidden = true;
-}
-
-export function showError() {
-  refs.error.hidden = false;
-}
-
 function hideLoader() {
-  refs.loader.hidden = true;
+  refs.loader.classList.add("hidden");
 }
 
 function showLoader() {
-  refs.loader.hidden = false;
+  refs.loader.classList.remove("hidden");
+
 }

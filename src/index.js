@@ -1,4 +1,8 @@
-import { fetchBreeds, fetchCatByBreed, refs, showError } from './cat-api.js';
+import { fetchBreeds, fetchCatByBreed, refs } from './cat-api.js';
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
+import Notiflix from 'notiflix';
+import "notiflix/dist/notiflix-3.2.6.min.css"
 
 fetchBreeds()
   .then(data => {
@@ -9,8 +13,11 @@ fetchBreeds()
       .join('');
 
     refs.select.innerHTML = option;
+    new SlimSelect({
+      select: refs.select,
+    });
   })
-  .catch(() => showError());
+  .catch(() => Notiflix.Notify.failure(refs.error.textContent));
 
 refs.select.addEventListener('change', catInfo);
 
@@ -31,7 +38,7 @@ function catInfo() {
       cat.catTemp = breeds[0].temperament;
       refs.catInfo.innerHTML = createMarkup(cat);
     })
-    .catch(() => showError());
+    .catch(() => Notiflix.Notify.failure(refs.error.textContent));
 }
 
 function createMarkup({ catImg, catTitle, catDescr, catTemp }) {
@@ -47,7 +54,3 @@ function createMarkup({ catImg, catTitle, catDescr, catTemp }) {
     </div>
     `;
 }
-
-new SlimSelect({
-  select: refs.select
-})

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:regular,700&display=swap");
 
+
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +10,8 @@
 body {
     font-family: "Roboto";
     line-height: 1.5;
+    background-color: gray;
+    color: #FFF;
     margin: 8px;
 }
 
@@ -18,11 +21,33 @@ body {
 }
 
 .loader {
-    font-weight: 700;
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
     margin-top: 10px;
 }
 
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* .loader {
+    font-weight: 700;
+} */
+
 .error {
+    display: none;
     font-weight: 700;
     color: red;
     margin-top: 10px;
@@ -61,4 +86,8 @@ img {
 
 .cat-temp {
     font-size: 18px;
+}
+
+.hidden {
+    display: none;
 }
